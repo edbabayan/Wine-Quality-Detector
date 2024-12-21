@@ -1,6 +1,7 @@
 import argparse
 
 import mlflow
+from mlflow.models.signature import infer_signature
 from sklearn.linear_model import ElasticNet
 
 from src.config import CFG
@@ -12,6 +13,7 @@ def main(alpha, l1_ratio):
     df = load_data()
     X_train, X_test, y_train, y_test = split_dataset(df)
 
+    mlflow.set_tracking_uri("http://localhost:5000")
     mlflow.set_experiment("ML-Model-1")
     with mlflow.start_run():
         mlflow.log_param("alpha", alpha)
@@ -25,7 +27,18 @@ def main(alpha, l1_ratio):
         mlflow.log_metric("rmse", rmse)
         mlflow.log_metric("mae", mae)
         mlflow.log_metric("r2-score", r2)
-        mlflow.sklearn.log_model(model, "trained_model")
+
+        # Create an input example and infer signature
+        input_example = X_train[:5]  # Provide a small slice of the training data
+        signature = infer_signature(X_train, model.predict(X_train))
+
+        # Log the model with input example and signature
+        mlflow.sklearn.log_model(
+            model,
+            "trained_model",
+            signature=signature,
+            input_example=input_example
+        )
 
 
 if __name__ == '__main__':
