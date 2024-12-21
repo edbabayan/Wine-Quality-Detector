@@ -13,7 +13,7 @@ def split_dataset(dataframe):
 
 
 def eval_function(actual, pred):
-    rmse = mean_squared_error(actual, pred, squared=False)
+    rmse = mean_squared_error(actual, pred)
     mae = mean_absolute_error(actual, pred)
     r2 = r2_score(actual, pred)
     return rmse, mae, r2
