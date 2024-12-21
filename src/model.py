@@ -4,9 +4,9 @@ import mlflow
 from mlflow.models.signature import infer_signature
 from sklearn.linear_model import ElasticNet
 
-from src.config import CFG
-from src.data_loader import load_data
-from src.utils import split_dataset, eval_function
+from config import CFG
+from data_loader import load_data
+from utils import split_dataset, eval_function
 
 
 def main(alpha, l1_ratio):

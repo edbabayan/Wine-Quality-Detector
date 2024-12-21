@@ -1,7 +1,5 @@
-name: Loan_prediction
-
-python_env: python_env.yaml
+name: src
 
 entry_points:
   main:
-    command: "python - src.model"
+    command: "python src/model.py"
