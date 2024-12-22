@@ -1,0 +1,7 @@
+python: '3.10.12'
+build_dependencies:
+- pip
+dependencies:
+- pandas==2.2.3
+- scikit-learn==1.6.0
+- mlflow==2.19.0
